@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import matplotlib.pyplot as plt
 import re
 
 
@@ -11,9 +10,7 @@ warnings.filterwarnings('ignore')
 sns.set_style("whitegrid")
 
 from vncorenlp import VnCoreNLP
-from sklearn.feature_extraction.text import CountVectorizer #vector
 from sklearn.feature_extraction.text import TfidfVectorizer
-from collections import Counter
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
@@ -38,9 +35,6 @@ def stopword():
     return list
 # Input
 file = pd.read_csv("r.csv")
-print(file.sample(5))
-#x = file['text'].head(1)
-#print(line)
 
 annotator = VnCoreNLP("C:/Users/acer/VnCoreNLP-1.1.1.jar", annotators="wseg", max_heap_size='-Xmx2g')
 
@@ -50,8 +44,8 @@ X = file['text']
 y = file['label']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
 print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
+
 tfidf = TfidfVectorizer(stop_words=stopword)
-#tfidf = TfidfVectorizer()
 clf = Pipeline([('vect', tfidf),
                 ('clf', LinearSVC())])
 clf.fit(X_train, y_train)
