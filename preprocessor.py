@@ -14,7 +14,7 @@ sns.set_style("whitegrid")
 def preprocessor(text):
     text = re.sub('<[^>]*>', '', text)
     text = re.sub('[^\w\d\s]+', '', text)
-    text = re.sub('[0-9]', '', text)
+    text = re.sub('[0-9]', '0', text)
     text = text.lower()
     return text
 
